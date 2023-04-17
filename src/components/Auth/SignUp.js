@@ -1,4 +1,4 @@
-// Lab 3 Exercise 1
+// Group Project
 // Author:      Marcus Ngooi (301147411)
 // Description: Signing up.
 import React from "react";
@@ -10,32 +10,24 @@ import { useNavigate } from "react-router-dom";
 
 const SIGN_UP = gql`
   mutation SignUp(
-    $studentNumber: String!
-    $email: String!
+    $userName: String!
     $password: String!
     $firstName: String!
     $lastName: String!
-    $address: String!
-    $city: String!
-    $phoneNumber: String!
-    $program: String!
-    $courses: [String!]
+    $userType: String!
+    $vitals: [String!]
   ) {
     signUp(
-      studentNumber: $studentNumber
-      email: $email
+      userName: $userName
       password: $password
       firstName: $firstName
       lastName: $lastName
-      address: $address
-      city: $city
-      phoneNumber: $phoneNumber
-      program: $program
-      courses: $courses
+      userType: $userType
+      vitals: $vitals
     ) {
       _id
-      studentNumber
-      email
+      userName
+      userType
     }
   }
 `;
@@ -43,16 +35,7 @@ const SIGN_UP = gql`
 function SignUp() {
   let navigate = useNavigate();
 
-  let studentNumber,
-    email,
-    password,
-    firstName,
-    lastName,
-    address,
-    city,
-    phoneNumber,
-    program,
-    courses;
+  let userName, firstName, lastName, password, userType;
   const [signUp, { data, loading, error }] = useMutation(SIGN_UP);
 
   if (loading) return "Submitting...";
@@ -65,51 +48,31 @@ function SignUp() {
           e.preventDefault();
           signUp({
             variables: {
-              studentNumber: studentNumber.value,
-              email: email.value,
+              userName: userName.value,
               password: password.value,
               firstName: firstName.value,
               lastName: lastName.value,
-              address: address.value,
-              city: city.value,
-              phoneNumber: phoneNumber.value,
-              program: program.value,
-              courses: [], // hard coded for now
+              userType: userType.value,
+              vitals: [],
             },
           });
-          studentNumber.value = "";
-          email.value = "";
+          userName.value = "";
           password.value = "";
           firstName.value = "";
           lastName.value = "";
-          address.value = "";
-          city = "";
-          phoneNumber = "";
-          program = "";
-          // courses = []
-          navigate("/liststudents");
+          userType.value = "";
+          navigate("/home");
         }}
       >
         <Form.Group>
-          <Form.Label> Student Number:</Form.Label>
+          <Form.Label> Username:</Form.Label>
           <Form.Control
             type="text"
-            name="studentNumber"
+            name="user"
             ref={(node) => {
-              studentNumber = node;
+              userName = node;
             }}
-            placeholder="Student Number:"
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label> Email:</Form.Label>
-          <Form.Control
-            type="text"
-            name="email"
-            ref={(node) => {
-              email = node;
-            }}
-            placeholder="Email:"
+            placeholder="Username:"
           />
         </Form.Group>
         <Form.Group>
@@ -146,48 +109,18 @@ function SignUp() {
           />
         </Form.Group>
         <Form.Group>
-          <Form.Label> Address:</Form.Label>
-          <Form.Control
-            type="text"
-            name="address"
+          <Form.Label> User Type:</Form.Label>
+          <Form.Select
+            name="userType"
             ref={(node) => {
-              address = node;
+              userType = node;
             }}
-            placeholder="Address:"
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label> City:</Form.Label>
-          <Form.Control
-            type="text"
-            name="city"
-            ref={(node) => {
-              city = node;
-            }}
-            placeholder="City:"
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label> Phone Number:</Form.Label>
-          <Form.Control
-            type="text"
-            name="phoneNumber"
-            ref={(node) => {
-              phoneNumber = node;
-            }}
-            placeholder="Phone Number:"
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label> Program:</Form.Label>
-          <Form.Control
-            type="text"
-            name="program"
-            ref={(node) => {
-              program = node;
-            }}
-            placeholder="Program:"
-          />
+            placeholder="User Type:"
+          >
+            <option value="">Select User Type</option>
+            <option value="nurse">Nurse</option>
+            <option value="patient">Patient</option>
+          </Form.Select>
         </Form.Group>
         <Button variant="primary" type="submit">
           Sign Up

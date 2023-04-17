@@ -1,9 +1,9 @@
-// Group Project
+// Lab 3 Exercise 1
 // Author:      Marcus Ngooi (301147411)
 //             Ikamjot Hundal (301147411)
-// Description: Signing in user.
+// Description: Signing inSIGNED_IN_STUDENT.
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { gql, useMutation } from "@apollo/client";
 
@@ -11,26 +11,23 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 const SIGN_IN = gql`
-  mutation SignIn($userName: String!, $password: String!) {
-    signIn(userName: $userName, password: $password) {
+  mutation SignIn($email: String!, $password: String!) {
+    signIn(email: $email, password: $password) {
       _id
-      userName
     }
   }
 `;
 
-function SignIn(props) {
+function SignIn() {
   let navigate = useNavigate();
-  let userName, password;
-  const {isSignedIn, handleSignIn} = props;
+  let email, password;
   const [signIn, { data, loading, error }] = useMutation(SIGN_IN);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     signIn({
-      variables: { userName: userName.value, password: password.value },
+      variables: { email: email.value, password: password.value },
     });
-    handleSignIn()
     navigate("/home");
   };
 
@@ -45,11 +42,11 @@ function SignIn(props) {
             <Form.Label> UserName:</Form.Label>
             <Form.Control
               type="text"
-              name="userName"
+              name="email"
               ref={(node) => {
-                userName = node;
+                email = node;
               }}
-              placeholder="User Name:"
+              placeholder="Email:"
             />
           </Form.Group>
           <Form.Group>

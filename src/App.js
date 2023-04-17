@@ -2,6 +2,7 @@
 // Author:      Marcus Ngooi (301147411)
 //              Ikamjot Hundal (301134374)
 // Description: Setting up the routes
+import { useState } from "react";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -20,24 +21,32 @@ import ShowCourses from "./components/Course/ShowCourses";
 
 import Home from "./components/Home";
 import SignUp from "./components/Auth/SignUp";
-import SignIn from "./components/Auth/SignIn";
+import SignIn from "./components/Auth/OLDSignIn";
 
 import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
+  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [isNurse, setIsNurse] = useState(false);
+
+  const handleSignIn = () => {
+    setIsSignedIn(true);
+  };
+
+  const handleSignOut = () => {
+    setIsSignedIn(false);
+  };
+
   return (
     <Router>
       <Navbar bg="dark" variant="dark" expand="lg">
         <Container>
-          <Navbar.Brand href="#home">Student Portal</Navbar.Brand>
+          <Navbar.Brand href="#home">Nurse Patient Portal</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
               <Nav.Link as={Link} to="/home">
                 Home
-              </Nav.Link>
-              <Nav.Link as={Link} to="/signin">
-                Sign In
               </Nav.Link>
               <Nav.Link as={Link} to="/liststudents">
                 List of Students
@@ -48,20 +57,35 @@ function App() {
               <Nav.Link as={Link} to="/addcourse">
                 Add Course
               </Nav.Link>
-              <Nav.Link as={Link} to="/signup">
-                Sign Up
-              </Nav.Link>
+              {!isSignedIn && (
+                <>
+                  <Nav.Link as={Link} to="/signin">
+                    Sign In
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/signup">
+                    Sign Up
+                  </Nav.Link>
+                </>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
       <div className="appContainer">
         <Routes>
-          <Route index element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/signin" element={<SignIn />} />
+          <Route index element={<SignIn />} />
+          <Route
+            path="/signin"
+            element={
+              <SignIn isSignedIn={isSignedIn} handleSignIn={handleSignIn} />
+            }
+          />
           <Route path="/signup" element={<SignUp />} />
-          
+
+          <Route path="/home" element={<PrivateRoute />}>
+            <Route path="/home" element={<Home />} />
+          </Route>
+
           <Route path="/liststudents" element={<PrivateRoute />}>
             <Route path="/liststudents" element={<ListStudents />} />
           </Route>
@@ -77,7 +101,7 @@ function App() {
           <Route path="/editcourse/:id" element={<PrivateRoute />}>
             <Route path="/editcourse/:id" element={<EditCourse />} />
           </Route>
-          
+
           <Route path="/showcourses/:id" element={<PrivateRoute />}>
             <Route path="/showcourses/:id" element={<ShowCourses />} />
           </Route>
