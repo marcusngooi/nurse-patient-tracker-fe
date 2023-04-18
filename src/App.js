@@ -24,6 +24,7 @@ import "./App.css";
 import Home from "./components/Home";
 import SignUp from "./components/Auth/SignUp";
 import SignIn from "./components/Auth/SignIn";
+import Game from "./components/Game"
 
 import PrivateRoute from "./components/PrivateRoute";
 import PatientRouteGuard from "./components/PatientRouteGuard";
@@ -98,6 +99,7 @@ function App() {
                   <Nav.Link as={Link} to="/checksymptoms">
                     Check Symptoms
                   </Nav.Link>
+                  <Nav.Link as={Link} to="/game">Game</Nav.Link>
                 </>
               )}
 
@@ -170,6 +172,7 @@ function App() {
             }
           />
           <Route path="/home" element={<Home />} />
+          <Route path="/game" element={<Game />} />
           <Route path="/entervitalsaspatient" element={<PrivateRoute />}>
             <Route path="/entervitalsaspatient" element={<EnterVitalSigns />} />
           </Route>
