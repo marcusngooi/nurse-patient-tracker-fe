@@ -2,11 +2,12 @@
 // Author(s):   Marcus Ngooi (301147411)
 //              Ikamjot Hundal (301134374)
 // Description: Shows the results of the user's inputs
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 const HepatitisCheckResults = () => {
   let location = useLocation();
+
   return (
     <div className="container">
       <h1>Prediction Results</h1>
@@ -37,11 +38,13 @@ const HepatitisCheckResults = () => {
         <tbody>
           <tr>
             <td>Value 1:</td>
-            <td>{location.state.prediction[0]}</td>
+            <td>{console.log(location.state.prediction)}</td>
+            {/* <td>{location.state.prediction.row1[0]}</td> */}
           </tr>
           <tr>
             <td>Value 2:</td>
-            <td>{location.state.prediction[1]}</td>
+            {/* <td>{location.state.prediction.row1[1]}</td> */}
+            <td></td>
           </tr>
         </tbody>
       </table>

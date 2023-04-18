@@ -3,36 +3,34 @@
 //              Ikamjot Hundal (301134374)
 // Description: Gather the user's inputs
 
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { gql, useLazyQuery } from "@apollo/client";
-
-import axios from "axios";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 const HEPATITIS_STATUS = gql`
   query HepatitisStatus(
-    $age: Int!
-    $sex: Int!
-    $steroid: Int!
-    $antivirals: Int!
-    $fatigue: Int!
-    $malaise: Int!
-    $anorexia: Int!
-    $liverBig: Int!
-    $liverFirm: Int!
-    $spleenPalpable: Int!
-    $spiders: Int!
-    $ascites: Int!
-    $varices: Int!
-    $bilurubin: Float!
-    $alkPhosphate: Int!
-    $sGot: Int!
-    $albumin: Float!
-    $protime: Int!
-    $histology: Int!
+    $age: String!
+    $sex: String!
+    $steroid: String!
+    $antivirals: String!
+    $fatigue: String!
+    $malaise: String!
+    $anorexia: String!
+    $liverBig: String!
+    $liverFirm: String!
+    $spleenPalpable: String!
+    $spiders: String!
+    $ascites: String!
+    $varices: String!
+    $bilurubin: String!
+    $alkPhosphate: String!
+    $sGot: String!
+    $albumin: String!
+    $protime: String!
+    $histology: String!
   ) {
     hepatitisStatus(
       age: $age
@@ -54,7 +52,9 @@ const HEPATITIS_STATUS = gql`
       albumin: $albumin
       protime: $protime
       histology: $histology
-    )
+    ) {
+      resultsArray
+    }
   }
 `;
 
@@ -109,7 +109,7 @@ const HepatitisCheckForm = () => {
         histology: histology.value,
       },
     });
-    console.log(response)
+    console.log(response);
     navigate("/hepatitischeckresults", {
       state: {
         prediction: response.data,

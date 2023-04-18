@@ -59,7 +59,7 @@ const CheckSymptoms = (props) => {
 
   return (
     <div className = 'entryform'>
-    <form
+    <Form
          onSubmit={ e => {    
             e.preventDefault();
             checkSymptoms( { variables: {fever:fever.value, cough:cough.value, fatique:fatique.value,
@@ -87,20 +87,20 @@ const CheckSymptoms = (props) => {
         } 
         }
          >
-        <Form.Check name="flexCheck" value="" id="fever" label="Fever or chills"  />
-        <Form.Check name="flexCheck" value="" id="cough" label="Cough" />
-        <Form.Check name="flexCheck" value="" id="breathing"  label="Shortness of breath or difficulty breathing"   />
-        <Form.Check name="flexCheck" value="" id="fatigue"  label="Fatigue"   />
-        <Form.Check name="flexCheck" value="" id="bodyaches"  label="Muscle or body aches"   />
-        <Form.Check name="flexCheck" value="" id="headache"  label="Headache"   />
-        <Form.Check name="flexCheck" value="" id="smell"  label="New loss of taste or smell" />
-        <Form.Check name="flexCheck" value="" id="sorethroat"  label="Sore throat" />
-        <Form.Check name="flexCheck" value="" id="runnynose"  label="Congestion or runny nose" />
-        <Form.Check name="flexCheck" value="" id="vomiting"  label="Nausea or vomiting" />
-        <Form.Check name="flexCheck" value="" id="diarrhea"  label="Diarrhea" />
+        <Form.Check name="flexCheck" value="" id="fever" ref={node => {fever = node; }} label="Fever or chills"  />
+<Form.Check name="flexCheck" value="" id="cough" ref={node => {cough = node; }} label="Cough" />
+<Form.Check name="flexCheck" value="" id="breathing"  ref={node => {breathing = node; }} label="Shortness of breath or difficulty breathing"   />
+<Form.Check name="flexCheck" value="" id="fatigue"  ref={node => {fatique = node; }} label="Fatigue"   />
+<Form.Check name="flexCheck" value="" id="bodyaches"  ref={node => {bodyaches = node; }} label="Muscle or body aches"   />
+<Form.Check name="flexCheck" value="" id="headache"  ref={node => {headache = node; }} label="Headache"   />
+<Form.Check name="flexCheck" value="" id="smell"  ref={node => {smell = node; }} label="New loss of taste or smell" />
+<Form.Check name="flexCheck" value="" id="sorethroat"  ref={node => {sorethroat = node; }} label="Sore throat" />
+<Form.Check name="flexCheck" value="" id="runnynose"  ref={node => {runnynose = node; }} label="Congestion or runny nose" />
+<Form.Check name="flexCheck" value="" id="vomiting"  ref={node => {vomiting = node; }} label="Nausea or vomiting" />
+<Form.Check name="flexCheck" value="" id="diarrhea"  ref={node => {diarrhea = node; }} label="Diarrhea" />
         <Button className="btn btn-primary btn-large centerButton" type="submit">Send</Button>
      
-    </form>
+    </Form>
     </div>
   );
 
