@@ -1,5 +1,5 @@
 // COMP308-402 Group Project
-// Authors:      Marcus Ngooi (301147411)
+// Authors:     Marcus Ngooi (301147411)
 //              Ikamjot Hundal (301134374)
 //              Ben Coombes
 //              Grant Macmillan

@@ -12,6 +12,9 @@ const client = new ApolloClient({
   uri: "http://localhost:4000/graphql",
   cache: new InMemoryCache(),
   credentials: "include",
+  fetchOptions: {
+    timeout: 300000,
+  },
 });
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
