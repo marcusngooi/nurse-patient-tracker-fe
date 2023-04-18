@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
+import { Container, Form, Button } from 'react-bootstrap';
 
 const ADD_ALERT = gql`
   mutation AddAlert($message: String!) {
@@ -25,20 +26,16 @@ function SendAlert() {
   };
 
   return (
-    <div>
-      <h1>Send Emergancy Alert</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Message:
-          <input
-            type="text"
-            value={message}
-            onChange={(event) => setMessage(event.target.value)}
-          ></input>
-        </label>
-        <button type="submit">Send Alert</button>
-      </form>
-    </div>
+    <Container>
+      <h1>Send Emergency Alert</h1>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="formMessage">
+          <Form.Label>Message:</Form.Label>
+          <Form.Control type="text" value={message} onChange={(event) => setMessage(event.target.value)} />
+        </Form.Group>
+        <Button variant="primary" type="submit">Send Alert</Button>
+      </Form>
+    </Container>
   );
 }
 
