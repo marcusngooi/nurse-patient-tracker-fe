@@ -2,19 +2,17 @@ import React, { useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 
 const ADD_TIP = gql`
-  mutation AddTip($message: String!, $patient: String!) {
-    addTip(message: $message, patient: $patient) {
+  mutation AddTip($message: String!) {
+    addTip(message: $message) {
       _id
       message
-      patient
     }
   }
 `;
 
 
-function CreateTip() {
+function CreateMotivationalTip() {
     const [message, setMessage] = useState('');
-    const [patient, setPatient] = useState('');
 
     const [addTip, {data, error}] = useMutation(ADD_TIP);
 
@@ -22,7 +20,7 @@ function CreateTip() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        addTip({ variables: {message, patient} })
+        addTip({ variables: {message: message} })
         setMessage('');
     };
 
@@ -33,15 +31,11 @@ function CreateTip() {
                 <label>Message:
                 <input type="text" value={message} onChange={(event) => setMessage(event.target.value)}/>
                 </label>
-                <label> Patient:
-                  <input type="text" value={patient} onChange={(event) => setPatient(event.target.value)} ></input>
-
-                </label>
-                <button type="submit">Send Tip</button>
+                <button type="submit">Create Motivational Tip</button>
                 
             </form>
         </div>
     );
 }
 
-export default CreateTip
+export default CreateMotivationalTip;

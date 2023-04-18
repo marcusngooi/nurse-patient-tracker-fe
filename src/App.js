@@ -28,6 +28,8 @@ import CheckCommonSymptoms from "./components/Patient/CheckCommonSymptoms";
 import HepatitisCheckForm from "./components/Nurse/HepatitisCheckForm";
 import HepatitisCheckResults from "./components/Nurse/HepatitisCheckResults";
 import SendAlert from "./components/Patient/SendAlert";
+import CreateMotivationalTip from "./components/Nurse/CreateMotivationalTip";
+import ReadMotivationalTip from "./components/Patient/ReadMotivationalTip";
 
 function App() {
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -100,6 +102,9 @@ function App() {
                   <Nav.Link as={Link} to="/sendemergencyalert">
                     Send Emergency Alert
                   </Nav.Link>
+                  <Nav.Link as={Link} to="/readmotivationaltip">
+                    Read Motivational Tip
+                  </Nav.Link>
                 </>
               )}
               {isSignedIn && isNurse && (
@@ -109,6 +114,9 @@ function App() {
                   </Nav.Link>
                   <Nav.Link as={Link} to="/hepatitischeckform">
                     Hepatitis Check
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/createmotivationaltip">
+                    Create Motivational Tip
                   </Nav.Link>
                 </>
               )}
@@ -170,7 +178,15 @@ function App() {
             path="/hepatitischeckresults"
             element={<HepatitisCheckResults />}
           />
+          <Route
+            path="/createmotivationaltip"
+            element={<CreateMotivationalTip />}
+          />
           <Route path="/sendemergencyalert" element={<SendAlert />} />
+          <Route
+            path="/readmotivationaltip"
+            element={<ReadMotivationalTip />}
+          />
         </Routes>
       </div>
     </Router>
