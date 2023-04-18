@@ -118,7 +118,6 @@ function SignUp(props) {
             }}
             placeholder="User Type:"
           >
-            <option value="">Select User Type</option>
             <option value="nurse">Nurse</option>
             <option value="patient">Patient</option>
           </Form.Select>

@@ -13,14 +13,6 @@ import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
 import "./App.css";
 
-// import ListStudents from "./components/Student/ListStudents";
-// import ShowStudents from "./components/Student/ShowStudents";
-
-// import AddCourse from "./components/Course/AddCourse";
-// import EditCourse from "./components/Course/EditCourse";
-// import ListCourses from "./components/Course/ListCourses";
-// import ShowCourses from "./components/Course/ShowCourses";
-
 import Home from "./components/Home";
 import SignUp from "./components/Auth/SignUp";
 import SignIn from "./components/Auth/SignIn";
@@ -33,6 +25,8 @@ import ListUsers from "./components/Nurse/ListUsers";
 import ShowVitalSigns from "./components/Patient/ShowVitalSigns";
 import EnterVitalSigns from "./components/Patient/EnterVitalSigns";
 import CheckCommonSymptoms from "./components/Patient/CheckCommonSymptoms";
+import HepatitisCheckForm from "./components/Nurse/HepatitisCheckForm";
+import HepatitisCheckResults from "./components/Nurse/HepatitisCheckResults";
 
 function App() {
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -102,26 +96,13 @@ function App() {
                   <Nav.Link as={Link} to="/game">Game</Nav.Link>
                 </>
               )}
-
-              {/* <Nav.Link as={Link} to="/liststudents">
-                List of Students
-              </Nav.Link>
-              <Nav.Link as={Link} to="/listcourses">
-                List of Courses
-              </Nav.Link>
-              <Nav.Link as={Link} to="/addcourse">
-                Add Course
-              </Nav.Link> */}
-              {/* <Nav.Link as={Link} to="/signin">
-                Sign In
-              </Nav.Link>
-              <Nav.Link as={Link} to="/signup">
-                Sign Up
-              </Nav.Link> */}
               {isSignedIn && isNurse && (
                 <>
                   <Nav.Link as={Link} to="/listusers">
                     List Users
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/hepatitischeckform">
+                    Hepatitis Check
                   </Nav.Link>
                 </>
               )}
@@ -176,29 +157,23 @@ function App() {
           <Route path="/entervitalsaspatient" element={<PrivateRoute />}>
             <Route path="/entervitalsaspatient" element={<EnterVitalSigns />} />
           </Route>
-          <Route path="/checksymptoms" element={<CheckCommonSymptoms />} />
-          {/* <Route path="/liststudents" element={<PrivateRoute />}>
-            <Route path="/liststudents" element={<ListStudents />} />
+          <Route path="/checksymptoms" element={<PrivateRoute />}>
+            <Route path="/checksymptoms" element={<CheckCommonSymptoms />} />
           </Route>
-          <Route path="/showstudents/:id" element={<PrivateRoute />}>
-            <Route path="/showstudents/:id" element={<ShowStudents />} />
+          <Route path="/entervitalsigns/:id" element={<PrivateRoute />}>
+            <Route path="/entervitalsigns/:id" element={<EnterVitalSigns />} />
           </Route>
-          <Route path="/listcourses" element={<PrivateRoute />}>
-            <Route path="/listcourses" element={<ListCourses />} />
+          <Route path="/showvitalsigns/:id" element={<PrivateRoute />}>
+            <Route path="/showvitalsigns/:id" element={<ShowVitalSigns />} />
           </Route>
-          <Route path="/editcourse/:id" element={<PrivateRoute />}>
-            <Route path="/editcourse/:id" element={<EditCourse />} />
+          <Route path="/listusers" element={<PrivateRoute />}>
+            <Route path="/listusers" element={<ListUsers />} />
           </Route>
-          <Route path="/showcourses/:id" element={<PrivateRoute />}>
-            <Route path="/showcourses/:id" element={<ShowCourses />} />
-          </Route>
-          <Route path="/addcourse" element={<PrivateRoute />}>
-            <Route path="/addcourse" element={<AddCourse />} />
-          </Route> */}
-          <Route path="/entervitalsigns/:id" element={<EnterVitalSigns />} />
-
-          <Route path="/showvitalsigns/:id" element={<ShowVitalSigns />} />
-          <Route path="/listusers" element={<ListUsers />} />
+          <Route path="/hepatitischeckform" element={<HepatitisCheckForm />} />
+          <Route
+            path="/hepatitischeckresults"
+            element={<HepatitisCheckResults />}
+          />
         </Routes>
       </div>
     </Router>
