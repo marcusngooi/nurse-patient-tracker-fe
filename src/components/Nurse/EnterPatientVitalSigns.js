@@ -16,14 +16,16 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 const ENTER_PATIENT_VITAL_SIGNS = gql`
-  mutation AddVitalAsPatient(
+  mutation AddVitalAsNurse(
+    $id: String!
     $weight: Float!
     $bodyTemperature: Float!
     $heartRate: Int!
     $bloodPressure: Int!
     $respiratoryRate: Float!
   ) {
-    addVitalAsPatient(
+    addVitalAsNurse(
+      id: $id
       weight: $weight
       bodyTemperature: $bodyTemperature
       heartRate: $heartRate
@@ -59,6 +61,7 @@ const EnterVitals = (props) => {
           e.preventDefault();
           enterVitals({
             variables: {
+              id: id,
               weight: parseFloat(weight.value),
               bodyTemperature: parseFloat(bodyTemperature.value),
               heartRate: parseInt(heartRate.value),
