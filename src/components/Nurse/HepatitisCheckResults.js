@@ -22,12 +22,12 @@ const HepatitisCheckResults = () => {
         </thead>
         <tbody>
           <tr>
-            <td>Die</td>
+            <td>Please see a doctor!</td>
             <td>1</td>
             <td>0</td>
           </tr>
           <tr>
-            <td>Live</td>
+            <td>You should still see a doctor, but the symptoms are not as concerning</td>
             <td>0</td>
             <td>1</td>
           </tr>
@@ -38,13 +38,11 @@ const HepatitisCheckResults = () => {
         <tbody>
           <tr>
             <td>Value 1:</td>
-            <td>{console.log(location.state.prediction)}</td>
-            {/* <td>{location.state.prediction.row1[0]}</td> */}
+            <td>{location.state.prediction.hepatitisStatus.resultsArray[0]}</td>
           </tr>
           <tr>
             <td>Value 2:</td>
-            {/* <td>{location.state.prediction.row1[1]}</td> */}
-            <td></td>
+            <td>{location.state.prediction.hepatitisStatus.resultsArray[1]}</td>
           </tr>
         </tbody>
       </table>

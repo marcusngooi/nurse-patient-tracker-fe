@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
+import { Container, Form, Button } from 'react-bootstrap';
 
 const ADD_TIP = gql`
   mutation AddTip($message: String!) {
@@ -25,17 +26,17 @@ function CreateMotivationalTip() {
     };
 
     return (
-        <div>
-            <h1>Create Tip</h1>
-            <form onSubmit={handleSubmit}>
-                <label>Message:
-                <input type="text" value={message} onChange={(event) => setMessage(event.target.value)}/>
-                </label>
-                <button type="submit">Create Motivational Tip</button>
-                
-            </form>
-        </div>
+      <Container>
+        <h1>Create Tip</h1>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group controlId="formMessage">
+            <Form.Label>Message:</Form.Label>
+            <Form.Control type="text" value={message} onChange={(event) => setMessage(event.target.value)} />
+          </Form.Group>
+          <Button variant="primary" type="submit">Create Motivational Tip</Button>
+        </Form>
+      </Container>
     );
-}
+  }
 
 export default CreateMotivationalTip;

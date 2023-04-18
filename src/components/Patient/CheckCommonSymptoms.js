@@ -66,6 +66,7 @@ const CheckSymptoms = (props) => {
 
   return (
     <div className="entryform">
+      <h1 className="text-center">Check Your Symptoms</h1>
       <Form
         onSubmit={(e) => {
           e.preventDefault();

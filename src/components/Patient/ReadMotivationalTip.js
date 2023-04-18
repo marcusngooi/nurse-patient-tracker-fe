@@ -1,5 +1,6 @@
 import React from "react";
 import { gql, useQuery } from "@apollo/client";
+import { Container } from 'react-bootstrap';
 
 const GET_TIPS = gql`
   query GetTip {
@@ -17,10 +18,13 @@ const ReadMotivationalTip = () => {
   if (error) return <p>Error : {error}</p>;
 
   return (
-    <div>
-      <h2>Tips for Patient </h2>
-      <p>{data.tip.message}</p>
-    </div>
+    <Container className="text-center">
+      <h1>Your Motivational Tip is:</h1>
+      <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '50vh'}}>
+      <h3>{data.tip.message}</h3>
+      </div>
+      
+    </Container>
   );
 };
 
