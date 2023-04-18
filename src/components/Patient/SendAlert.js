@@ -17,9 +17,6 @@ const ADD_ALERT = gql`
   }
 `;
 
-
-
-
 function CreateAlert() {
     const [message, setMessage] = useState('');
 
