@@ -54,6 +54,7 @@ function SignUp(props) {
               lastName: lastName.value,
               userType: userType.value,
               vitals: [],
+              checklist: [],
             },
           });
           props.handleSignIn(data);
