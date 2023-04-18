@@ -4,20 +4,21 @@
 // Description: Shows the results of the user's inputs
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { Spinner, Container, Row, Col, Card, Table, Form, Button } from 'react-bootstrap';
 
 const HepatitisCheckResults = () => {
   let location = useLocation();
 
   return (
     <div className="container">
-      <h1>Prediction Results</h1>
-      <h2>The values for Hepatitis status will be:</h2>
-      <table>
+      <h1 style={{textAlign: 'center'}}>Prediction Results</h1>
+  <h2 style={{textAlign: 'center'}}>The values for Hepatitis status will be:</h2>
+  <Table className='mt-3 text-center' striped bordered hover variant="dark">
         <thead>
           <tr>
-            <th>Hepatitis Status</th>
-            <th>Value 1</th>
-            <th>Value 2</th>
+          <th width="33%">Hepatitis Status</th>
+            <th width="33%">Value 1</th>
+            <th width="33%">Value 2</th>
           </tr>
         </thead>
         <tbody>
@@ -32,9 +33,9 @@ const HepatitisCheckResults = () => {
             <td>1</td>
           </tr>
         </tbody>
-      </table>
-      <h2>Prediction</h2>
-      <table>
+      </Table>
+      <h2 style={{textAlign: 'center'}}>Prediction:</h2>
+      <Table className='mt-3 text-center' striped bordered hover variant="dark">
         <tbody>
           <tr>
             <td>Value 1:</td>
@@ -45,7 +46,7 @@ const HepatitisCheckResults = () => {
             <td>{location.state.prediction.hepatitisStatus.resultsArray[1]}</td>
           </tr>
         </tbody>
-      </table>
+      </Table>
     </div>
   );
 };
