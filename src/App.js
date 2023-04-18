@@ -16,7 +16,7 @@ import "./App.css";
 import Home from "./components/Home";
 import SignUp from "./components/Auth/SignUp";
 import SignIn from "./components/Auth/SignIn";
-import Game from "./components/Game"
+import Game from "./components/Game";
 
 import PrivateRoute from "./components/PrivateRoute";
 import PatientRouteGuard from "./components/PatientRouteGuard";
@@ -27,6 +27,7 @@ import EnterVitalSigns from "./components/Patient/EnterVitalSigns";
 import CheckCommonSymptoms from "./components/Patient/CheckCommonSymptoms";
 import HepatitisCheckForm from "./components/Nurse/HepatitisCheckForm";
 import HepatitisCheckResults from "./components/Nurse/HepatitisCheckResults";
+import SendAlert from "./components/Patient/SendAlert";
 
 function App() {
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -93,7 +94,12 @@ function App() {
                   <Nav.Link as={Link} to="/checksymptoms">
                     Check Symptoms
                   </Nav.Link>
-                  <Nav.Link as={Link} to="/game">Game</Nav.Link>
+                  <Nav.Link as={Link} to="/game">
+                    Game
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/sendemergencyalert">
+                    Send Emergency Alert
+                  </Nav.Link>
                 </>
               )}
               {isSignedIn && isNurse && (
@@ -154,26 +160,17 @@ function App() {
           />
           <Route path="/home" element={<Home />} />
           <Route path="/game" element={<Game />} />
-          <Route path="/entervitalsaspatient" element={<PrivateRoute />}>
-            <Route path="/entervitalsaspatient" element={<EnterVitalSigns />} />
-          </Route>
-          <Route path="/checksymptoms" element={<PrivateRoute />}>
-            <Route path="/checksymptoms" element={<CheckCommonSymptoms />} />
-          </Route>
-          <Route path="/entervitalsigns/:id" element={<PrivateRoute />}>
-            <Route path="/entervitalsigns/:id" element={<EnterVitalSigns />} />
-          </Route>
-          <Route path="/showvitalsigns/:id" element={<PrivateRoute />}>
-            <Route path="/showvitalsigns/:id" element={<ShowVitalSigns />} />
-          </Route>
-          <Route path="/listusers" element={<PrivateRoute />}>
-            <Route path="/listusers" element={<ListUsers />} />
-          </Route>
+          <Route path="/entervitalsaspatient" element={<EnterVitalSigns />} />
+          <Route path="/checksymptoms" element={<CheckCommonSymptoms />} />
+          <Route path="/entervitalsigns/:id" element={<EnterVitalSigns />} />
+          <Route path="/showvitalsigns/:id" element={<ShowVitalSigns />} />
+          <Route path="/listusers" element={<ListUsers />} />
           <Route path="/hepatitischeckform" element={<HepatitisCheckForm />} />
           <Route
             path="/hepatitischeckresults"
             element={<HepatitisCheckResults />}
           />
+          <Route path="/sendemergencyalert" element={<SendAlert />} />
         </Routes>
       </div>
     </Router>
