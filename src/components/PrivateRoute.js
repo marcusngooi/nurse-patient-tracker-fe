@@ -1,7 +1,7 @@
 // Lab 3 Exercise 1
 // Author:      Marcus Ngooi (301147411)
 //              Ikamjot Hundal (301134374)
-// Description: Setting up the Guard for the login 
+// Description: Setting up the Guard for the login
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 

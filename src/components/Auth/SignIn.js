@@ -15,6 +15,7 @@ const SIGN_IN = gql`
     signIn(userName: $userName, password: $password) {
       _id
       userName
+      userType
     }
   }
 `;
@@ -22,15 +23,14 @@ const SIGN_IN = gql`
 function SignIn(props) {
   let navigate = useNavigate();
   let userName, password;
-  const {isSignedIn, handleSignIn} = props;
   const [signIn, { data, loading, error }] = useMutation(SIGN_IN);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    signIn({
+    const payload = await signIn({
       variables: { userName: userName.value, password: password.value },
     });
-    handleSignIn()
+    props.handleSignIn(payload);
     navigate("/home");
   };
 

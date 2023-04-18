@@ -32,7 +32,7 @@ const SIGN_UP = gql`
   }
 `;
 
-function SignUp() {
+function SignUp(props) {
   let navigate = useNavigate();
 
   let userName, firstName, lastName, password, userType;
@@ -44,9 +44,9 @@ function SignUp() {
   return (
     <div>
       <form
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
-          signUp({
+          await signUp({
             variables: {
               userName: userName.value,
               password: password.value,
@@ -56,6 +56,7 @@ function SignUp() {
               vitals: [],
             },
           });
+          props.handleSignIn(data);
           userName.value = "";
           password.value = "";
           firstName.value = "";
