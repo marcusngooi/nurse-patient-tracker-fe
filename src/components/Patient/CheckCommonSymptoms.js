@@ -98,7 +98,7 @@ const CheckSymptoms = (props) => {
           runnynose.value = "";
           vomiting.value = "";
           diarrhea.value = "";
-          navigate("/");
+          navigate("/home");
         }}
       >
         <Form.Check
