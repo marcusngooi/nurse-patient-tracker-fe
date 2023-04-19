@@ -41,7 +41,7 @@ const ENTER_VITAL_SIGNS = gql`
 //function component to add vital signs
 const EnterVitals = (props) => {
   const { id } = useParams();
-  // let navigate = useNavigate();
+  let navigate = useNavigate();
 
   let weight, bodyTemperature, heartRate, bloodPressure, respiratoryRate;
 
@@ -73,6 +73,8 @@ const EnterVitals = (props) => {
           respiratoryRate.value = "";
 
           // navigate("/entervitalsigns/" + id);
+          alert("Submitted the vital signs");
+          navigate("/home")
         }}
       >
         <Form.Group>
