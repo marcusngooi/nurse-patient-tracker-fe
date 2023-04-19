@@ -78,6 +78,7 @@ const EnterVitals = (props) => {
         <Form.Group>
           <Form.Label> Weight: </Form.Label>
           <Form.Control
+          required
             type="text"
             name="weight"
             ref={(node) => {
@@ -89,6 +90,7 @@ const EnterVitals = (props) => {
         <Form.Group>
           <Form.Label> Body Temperature: </Form.Label>
           <Form.Control
+          required
             type="text"
             name="bodyTemperature"
             ref={(node) => {
@@ -100,6 +102,7 @@ const EnterVitals = (props) => {
         <Form.Group>
           <Form.Label> Heart Rate: </Form.Label>
           <Form.Control
+          required
             type="text"
             name="heartRate"
             ref={(node) => {
@@ -111,6 +114,7 @@ const EnterVitals = (props) => {
         <Form.Group>
           <Form.Label> Blood Pressure: </Form.Label>
           <Form.Control
+          required
             type="text"
             name="Blood Pressure"
             ref={(node) => {
@@ -122,6 +126,7 @@ const EnterVitals = (props) => {
         <Form.Group>
           <Form.Label> Respiratory Rate: </Form.Label>
           <Form.Control
+          required
             type="text"
             name="respiratoryRate"
             ref={(node) => {

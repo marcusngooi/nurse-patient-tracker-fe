@@ -132,6 +132,7 @@ const HepatitisCheckForm = () => {
         <Form.Group>
           <Form.Label>Age:</Form.Label>
           <Form.Control
+          required 
             type="number"
             name="age"
             ref={(node) => {
@@ -299,6 +300,7 @@ const HepatitisCheckForm = () => {
         <Form.Group>
           <Form.Label>Bilurubin Level (mg/dL):</Form.Label>
           <Form.Control
+          required
             type="text"
             name="bilurubin"
             ref={(node) => {
@@ -310,6 +312,7 @@ const HepatitisCheckForm = () => {
         <Form.Group>
           <Form.Label>Alkaline Phosphatase Level (U/L):</Form.Label>
           <Form.Control
+          required
             type="number"
             name="alkPhosphate"
             ref={(node) => {
@@ -323,6 +326,7 @@ const HepatitisCheckForm = () => {
             Serum Glutamic Oxaloacetic Transaminase Level (U/L):
           </Form.Label>
           <Form.Control
+          required
             type="number"
             name="sGot"
             ref={(node) => {
@@ -334,6 +338,7 @@ const HepatitisCheckForm = () => {
         <Form.Group>
           <Form.Label>Albumin Level (g/dL):</Form.Label>
           <Form.Control
+          required
             type="text"
             name="albumin"
             ref={(node) => {
@@ -345,6 +350,7 @@ const HepatitisCheckForm = () => {
         <Form.Group>
           <Form.Label>Prothrombin Time (seconds):</Form.Label>
           <Form.Control
+          required
             type="number"
             name="protime"
             ref={(node) => {
