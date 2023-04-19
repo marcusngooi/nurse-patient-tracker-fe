@@ -69,6 +69,7 @@ function SignUp(props) {
         <Form.Group>
           <Form.Label> Username:</Form.Label>
           <Form.Control
+          required
             type="text"
             name="user"
             ref={(node) => {
@@ -80,6 +81,7 @@ function SignUp(props) {
         <Form.Group>
           <Form.Label> Password:</Form.Label>
           <Form.Control
+          required
             type="password"
             name="password"
             ref={(node) => {
@@ -91,6 +93,7 @@ function SignUp(props) {
         <Form.Group>
           <Form.Label> First Name:</Form.Label>
           <Form.Control
+          required
             type="text"
             name="firstName"
             ref={(node) => {
@@ -102,6 +105,7 @@ function SignUp(props) {
         <Form.Group>
           <Form.Label> Last Name:</Form.Label>
           <Form.Control
+          required
             type="text"
             name="lastName"
             ref={(node) => {
