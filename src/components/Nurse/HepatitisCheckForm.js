@@ -119,7 +119,6 @@ const HepatitisCheckForm = () => {
       },
     });
     setShowLoading(false);
-    console.log(response);
     navigate("/hepatitischeckresults", {
       state: {
         prediction: response.data,

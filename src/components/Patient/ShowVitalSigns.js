@@ -38,7 +38,7 @@ const ShowVitalSigns = (props) => {
   
 
   if (loading) return <h1>Loading Patient Vital Signs...</h1>;
-  if (error) return <h1>Error: {error}</h1>;
+  if (error) return <h1>Error:</h1>;
 
   return (
     <div>
