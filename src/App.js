@@ -8,6 +8,7 @@
 // Description: Setting up the routes
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
+import { gql, useMutation } from "@apollo/client";
 
 import Cookies from "js-cookie";
 
@@ -35,9 +36,17 @@ import SendAlert from "./components/Patient/SendAlert";
 import CreateMotivationalTip from "./components/Nurse/CreateMotivationalTip";
 import ReadMotivationalTip from "./components/Patient/ReadMotivationalTip";
 
+const SIGN_OUT = gql`
+  mutation SignOut {
+    signOut
+  }
+`;
+
 function App() {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [isNurse, setIsNurse] = useState(false);
+
+  const [signOut, { data, loading, error }] = useMutation(SIGN_OUT);
 
   useEffect(() => {
     // Retrieve the isSignedIn value from the cookie when the application loads
@@ -63,10 +72,11 @@ function App() {
     }
   };
 
-  // const handleSignOut = () => {
-  //   setIsSignedIn(false);
-  //   Cookies.set("isSignedIn", "false");
-  // };
+  const handleSignOut = () => {
+    setIsSignedIn(false);
+    Cookies.set("isSignedIn", "false");
+    signOut();
+  };
 
   const handleSignUp = (data) => {
     setIsSignedIn(true);
@@ -109,6 +119,9 @@ function App() {
                   <Nav.Link as={Link} to="/readmotivationaltip">
                     Read Motivational Tip
                   </Nav.Link>
+                  <Nav.Link as={Link} onClick={handleSignOut}>
+                    Sign Out
+                  </Nav.Link>
                 </>
               )}
               {isSignedIn && isNurse && (
@@ -121,6 +134,9 @@ function App() {
                   </Nav.Link>
                   <Nav.Link as={Link} to="/createmotivationaltip">
                     Create Motivational Tip
+                  </Nav.Link>
+                  <Nav.Link as={Link} onClick={handleSignOut}>
+                    Sign Out
                   </Nav.Link>
                 </>
               )}
