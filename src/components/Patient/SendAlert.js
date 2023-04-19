@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { Container, Form, Button } from 'react-bootstrap';
-
+import { useNavigate } from "react-router-dom";
 const ADD_ALERT = gql`
   mutation AddAlert($message: String!) {
     addAlert(message: $message) {
@@ -13,6 +13,7 @@ const ADD_ALERT = gql`
 `;
 
 function SendAlert() {
+  let navigate = useNavigate();
   const [message, setMessage] = useState("");
 
   const [addAlert, { data, error }] = useMutation(ADD_ALERT);
@@ -23,6 +24,9 @@ function SendAlert() {
     event.preventDefault();
     addAlert({ variables: { message: message } });
     setMessage("");
+    alert("The first Responders is onroute");
+    navigate("/home");
+
   };
 
   return (
