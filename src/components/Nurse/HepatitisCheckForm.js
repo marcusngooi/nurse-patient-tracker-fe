@@ -6,9 +6,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { gql, useLazyQuery } from "@apollo/client";
+import { useState } from "react";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Spinner from 'react-bootstrap/Spinner';
 
 const HEPATITIS_STATUS = gql`
   query HepatitisStatus(
@@ -84,7 +86,10 @@ const HepatitisCheckForm = () => {
   const [getHepatitisStatus, { loading, error, data }] =
     useLazyQuery(HEPATITIS_STATUS);
 
+    const [showLoading, setShowLoading] = useState(false);  
+
   const handleSubmit = async (e) => {
+    setShowLoading(true);
     e.preventDefault();
     const response = await getHepatitisStatus({
       variables: {
@@ -109,6 +114,7 @@ const HepatitisCheckForm = () => {
         histology: histology.value,
       },
     });
+    setShowLoading(false);
     console.log(response);
     navigate("/hepatitischeckresults", {
       state: {
@@ -120,6 +126,8 @@ const HepatitisCheckForm = () => {
   return (
     <div className="container">
       <h1>Input Form</h1>
+      
+
       <Form onSubmit={handleSubmit}>
         <Form.Group>
           <Form.Label>Age:</Form.Label>
@@ -361,6 +369,12 @@ const HepatitisCheckForm = () => {
             <option value="2">Yes</option>
           </Form.Select>
         </Form.Group>
+
+        {showLoading && 
+            <Spinner animation="border" role="status">
+            <span className="sr-only">Loading...</span>
+            </Spinner> 
+        } 
         <Button variant="primary" type="submit">
           Check Hepatitis Status
         </Button>
