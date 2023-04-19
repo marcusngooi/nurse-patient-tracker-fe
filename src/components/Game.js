@@ -1,7 +1,11 @@
-// Lab 3 Exercise 1
-// Author:      Marcus Ngooi (301147411)
+// COMP308-402 Group Project-Group-4
+// Authors:     Marcus Ngooi (301147411)
 //              Ikamjot Hundal (301134374)
-// Description: Home's Page
+//              Ben Coombes (301136902)
+//              Grant Macmillan (301129935)
+//              Gabriel Dias Tinoco
+//              Tatsiana Ptushko (301182173)
+// Description: Game's Page
 import React, { useEffect } from "react";
 import { Unity, useUnityContext } from "react-unity-webgl";
 function Game() {
@@ -15,6 +19,13 @@ function Game() {
       preserveDrawingBuffer: true,
     },
   });
+
+  // Add an event listener for when the component unmounts
+  useEffect(() => {
+    return async () => {
+      await unityProvider.unload();
+    };
+  }, []);
 
   const styles = {
     display: "flex",

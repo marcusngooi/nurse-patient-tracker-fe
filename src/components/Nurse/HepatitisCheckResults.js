@@ -1,7 +1,11 @@
-// Lab 4 Exercise 1
-// Author(s):   Marcus Ngooi (301147411)
+// COMP308-402 Group Project-Group-4
+// Authors:     Marcus Ngooi (301147411)
 //              Ikamjot Hundal (301134374)
-// Description: Shows the results of the user's inputs
+//              Ben Coombes (301136902)
+//              Grant Macmillan (301129935)
+//              Gabriel Dias Tinoco
+//              Tatsiana Ptushko (301182173)
+// Description: Show AI Generated Results for Hepatitis Check
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Spinner, Container, Row, Col, Card, Table, Form, Button } from 'react-bootstrap';
