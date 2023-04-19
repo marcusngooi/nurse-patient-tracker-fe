@@ -36,7 +36,7 @@ function CreateMotivationalTip() {
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formMessage">
             <Form.Label>Message:</Form.Label>
-            <Form.Control type="text" value={message} onChange={(event) => setMessage(event.target.value)} />
+            <Form.Control required type="text" value={message} onChange={(event) => setMessage(event.target.value)} />
           </Form.Group>
           <Button variant="primary" type="submit">Create Motivational Tip</Button>
         </Form>
