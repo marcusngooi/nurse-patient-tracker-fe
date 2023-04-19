@@ -46,7 +46,7 @@ function SignUp(props) {
       <form
         onSubmit={async (e) => {
           e.preventDefault();
-          await signUp({
+          const payload = await signUp({
             variables: {
               userName: userName.value,
               password: password.value,
@@ -57,19 +57,14 @@ function SignUp(props) {
               checklist: [],
             },
           });
-          props.handleSignIn(data);
-          userName.value = "";
-          password.value = "";
-          firstName.value = "";
-          lastName.value = "";
-          userType.value = "";
+          props.handleSignUp(payload);
           navigate("/home");
         }}
       >
         <Form.Group>
           <Form.Label> Username:</Form.Label>
           <Form.Control
-          required
+            required
             type="text"
             name="user"
             ref={(node) => {
@@ -81,7 +76,7 @@ function SignUp(props) {
         <Form.Group>
           <Form.Label> Password:</Form.Label>
           <Form.Control
-          required
+            required
             type="password"
             name="password"
             ref={(node) => {
@@ -93,7 +88,7 @@ function SignUp(props) {
         <Form.Group>
           <Form.Label> First Name:</Form.Label>
           <Form.Control
-          required
+            required
             type="text"
             name="firstName"
             ref={(node) => {
@@ -105,7 +100,7 @@ function SignUp(props) {
         <Form.Group>
           <Form.Label> Last Name:</Form.Label>
           <Form.Control
-          required
+            required
             type="text"
             name="lastName"
             ref={(node) => {

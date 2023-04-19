@@ -166,7 +166,7 @@ function App() {
               <SignUp
                 isSignedIn={isSignedIn}
                 isNurse={isNurse}
-                handleSignIn={handleSignUp}
+                handleSignUp={handleSignUp}
               />
             }
           />
