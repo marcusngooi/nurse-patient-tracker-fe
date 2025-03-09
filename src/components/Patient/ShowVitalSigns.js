@@ -1,18 +1,8 @@
-// COMP308-402 Group Project
-// Authors:      Marcus Ngooi (301147411)
-//              Ikamjot Hundal (301134374)
-//              Ben Coombes
-//              Grant Macmillan
-//              Gabriel Dias Tinoco
-//              Tatsiana Ptushko (301182173)
-// Description: Show the list of the vital signs
-
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { gql, useQuery, useMutation } from "@apollo/client";
+import { useParams } from "react-router-dom";
 
+import { gql, useQuery } from "@apollo/client";
 import Table from "react-bootstrap/Table";
-import Button from "react-bootstrap/Button";
 
 const GET_VITAL_SIGNS = gql`
   query PatientVitalsAsNurse($id: String!) {
@@ -28,14 +18,11 @@ const GET_VITAL_SIGNS = gql`
   }
 `;
 
-const ShowVitalSigns = (props) => {
-  let navigate = useNavigate();
+const ShowVitalSigns = () => {
   const { id } = useParams();
   const { loading, error, data, refetch } = useQuery(GET_VITAL_SIGNS, {
     variables: { id: id },
   });
-
-  
 
   if (loading) return <h1>Loading Patient Vital Signs...</h1>;
   if (error) return <h1>Error:</h1>;
@@ -55,8 +42,8 @@ const ShowVitalSigns = (props) => {
           </tr>
         </thead>
         <tbody>
-          {data.patientVitalsAsNurse.map((vitals, index) => (
-            <tr key={index}>
+          {data.patientVitalsAsNurse.map((vitals) => (
+            <tr key={vitals._id}>
               <td>{vitals._id}</td>
               <td>{vitals.heartRate}</td>
               <td>{vitals.bloodPpressure}</td>

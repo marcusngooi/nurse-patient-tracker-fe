@@ -1,14 +1,5 @@
-// COMP308-402 Group Project-Group-4
-// Authors:     Marcus Ngooi (301147411)
-//              Ikamjot Hundal (301134374)
-//              Ben Coombes (301136902)
-//              Grant Macmillan (301129935)
-//              Gabriel Dias Tinoco
-//              Tatsiana Ptushko (301182173)
-// Description: Check common symptoms
-
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { gql, useMutation } from "@apollo/client";
 import Form from "react-bootstrap/Form";
@@ -45,9 +36,8 @@ const CHECK_SYMPTOMS = gql`
     }
   }
 `;
-const CheckSymptoms = (props) => {
+const CheckSymptoms = () => {
   let navigate = useNavigate();
-  //
   let fever,
     cough,
     fatique,
@@ -59,10 +49,10 @@ const CheckSymptoms = (props) => {
     runnynose,
     vomiting,
     diarrhea;
-  const [checkSymptoms, { data, loading, error }] = useMutation(CHECK_SYMPTOMS);
+  const [checkSymptoms, { loading, error }] = useMutation(CHECK_SYMPTOMS);
 
-  if (loading) return "Submitting...";
-  if (error) return `Submission error! ${error.message}`;
+  if (loading) return <h1>Submitting...</h1>;
+  if (error) return <h1>{`Submission error! ${error.message}`}</h1>;
 
   return (
     <div className="entryform">

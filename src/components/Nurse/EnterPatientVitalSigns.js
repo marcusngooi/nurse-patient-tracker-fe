@@ -1,18 +1,8 @@
-// COMP308-402 Group Project-Group-4
-// Authors:     Marcus Ngooi (301147411)
-//              Ikamjot Hundal (301134374)
-//              Ben Coombes (301136902)
-//              Grant Macmillan (301129935)
-//              Gabriel Dias Tinoco
-//              Tatsiana Ptushko (301182173)
-// Description: Enter Patient Vital Signs
-
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import { gql, useMutation } from "@apollo/client";
 import Form from "react-bootstrap/Form";
-
 import Button from "react-bootstrap/Button";
 
 const ENTER_PATIENT_VITAL_SIGNS = gql`
@@ -40,18 +30,16 @@ const ENTER_PATIENT_VITAL_SIGNS = gql`
   }
 `;
 
-//function component to add vital signs
-const EnterVitals = (props) => {
+const EnterVitals = () => {
   const { id } = useParams();
-  // let navigate = useNavigate();
-
   let weight, bodyTemperature, heartRate, bloodPressure, respiratoryRate;
 
-  const [enterVitals, { data, loading, error }] =
-    useMutation(ENTER_PATIENT_VITAL_SIGNS);
+  const [enterVitals, { loading, error }] = useMutation(
+    ENTER_PATIENT_VITAL_SIGNS
+  );
 
-  if (loading) return "Submiting..";
-  if (error) return `Submission error! ${error.message}`;
+  if (loading) return <h1>Submitting...</h1>;
+  if (error) return <h1>{`Submission error! ${error.message}`}</h1>;
 
   return (
     <div className="entryform">
@@ -74,8 +62,6 @@ const EnterVitals = (props) => {
           heartRate.value = "";
           bloodPressure.value = "";
           respiratoryRate.value = "";
-
-          // navigate("/entervitalsigns/" + id);
         }}
       >
         <Form.Group>

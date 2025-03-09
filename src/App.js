@@ -1,31 +1,16 @@
-// COMP308-402 Group Project-Group-4
-// Authors:     Marcus Ngooi (301147411)
-//              Ikamjot Hundal (301134374)
-//              Ben Coombes (301136902)
-//              Grant Macmillan (301129935)
-//              Gabriel Dias Tinoco
-//              Tatsiana Ptushko (301182173)
-// Description: Setting up the routes
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
+
 import { gql, useMutation } from "@apollo/client";
-
 import Cookies from "js-cookie";
-
-import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
-import "./App.css";
 
 import Home from "./components/Home";
 import SignUp from "./components/Auth/SignUp";
 import SignIn from "./components/Auth/SignIn";
 import Game from "./components/Game";
-
-import PrivateRoute from "./components/PrivateRoute";
-import PatientRouteGuard from "./components/PatientRouteGuard";
-
 import ListUsers from "./components/Nurse/ListUsers";
 import ShowVitalSigns from "./components/Patient/ShowVitalSigns";
 import EnterVitalSigns from "./components/Patient/EnterVitalSigns";
@@ -35,6 +20,9 @@ import HepatitisCheckResults from "./components/Nurse/HepatitisCheckResults";
 import SendAlert from "./components/Patient/SendAlert";
 import CreateMotivationalTip from "./components/Nurse/CreateMotivationalTip";
 import ReadMotivationalTip from "./components/Patient/ReadMotivationalTip";
+import "./App.css";
+
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const SIGN_OUT = gql`
   mutation SignOut {
@@ -42,14 +30,13 @@ const SIGN_OUT = gql`
   }
 `;
 
-function App() {
+const App = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [isNurse, setIsNurse] = useState(false);
 
-  const [signOut, { data, loading, error }] = useMutation(SIGN_OUT);
+  const signOut = useMutation(SIGN_OUT);
 
   useEffect(() => {
-    // Retrieve the isSignedIn value from the cookie when the application loads
     const isSignedInCookie = Cookies.get("isSignedIn");
     if (isSignedInCookie) {
       setIsSignedIn(isSignedInCookie === "true");
@@ -211,6 +198,6 @@ function App() {
       </div>
     </Router>
   );
-}
+};
 
 export default App;

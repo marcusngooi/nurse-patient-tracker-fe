@@ -1,20 +1,10 @@
-// COMP308-402 Group Project-Group-4
-// Authors:     Marcus Ngooi (301147411)
-//              Ikamjot Hundal (301134374)
-//              Ben Coombes (301136902)
-//              Grant Macmillan (301129935)
-//              Gabriel Dias Tinoco
-//              Tatsiana Ptushko (301182173)
-// Description: Collect users input for Hepatitis Check Form
-
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { gql, useLazyQuery } from "@apollo/client";
-import { useState } from "react";
 
+import { gql, useLazyQuery } from "@apollo/client";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Spinner from 'react-bootstrap/Spinner';
+import Spinner from "react-bootstrap/Spinner";
 
 const HEPATITIS_STATUS = gql`
   query HepatitisStatus(
@@ -66,7 +56,6 @@ const HEPATITIS_STATUS = gql`
 
 const HepatitisCheckForm = () => {
   let navigate = useNavigate();
-
   let age,
     sex,
     steroid,
@@ -87,10 +76,8 @@ const HepatitisCheckForm = () => {
     protime,
     histology;
 
-  const [getHepatitisStatus, { loading, error, data }] =
-    useLazyQuery(HEPATITIS_STATUS);
-
-    const [showLoading, setShowLoading] = useState(false);  
+  const getHepatitisStatus = useLazyQuery(HEPATITIS_STATUS);
+  const [showLoading, setShowLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     setShowLoading(true);
@@ -129,13 +116,11 @@ const HepatitisCheckForm = () => {
   return (
     <div className="container">
       <h1>Input Form</h1>
-      
-
       <Form onSubmit={handleSubmit}>
         <Form.Group>
           <Form.Label>Age:</Form.Label>
           <Form.Control
-          required 
+            required
             type="number"
             name="age"
             ref={(node) => {
@@ -303,7 +288,7 @@ const HepatitisCheckForm = () => {
         <Form.Group>
           <Form.Label>Bilurubin Level (mg/dL):</Form.Label>
           <Form.Control
-          required
+            required
             type="text"
             name="bilurubin"
             ref={(node) => {
@@ -315,7 +300,7 @@ const HepatitisCheckForm = () => {
         <Form.Group>
           <Form.Label>Alkaline Phosphatase Level (U/L):</Form.Label>
           <Form.Control
-          required
+            required
             type="number"
             name="alkPhosphate"
             ref={(node) => {
@@ -329,7 +314,7 @@ const HepatitisCheckForm = () => {
             Serum Glutamic Oxaloacetic Transaminase Level (U/L):
           </Form.Label>
           <Form.Control
-          required
+            required
             type="number"
             name="sGot"
             ref={(node) => {
@@ -341,7 +326,7 @@ const HepatitisCheckForm = () => {
         <Form.Group>
           <Form.Label>Albumin Level (g/dL):</Form.Label>
           <Form.Control
-          required
+            required
             type="text"
             name="albumin"
             ref={(node) => {
@@ -353,7 +338,7 @@ const HepatitisCheckForm = () => {
         <Form.Group>
           <Form.Label>Prothrombin Time (seconds):</Form.Label>
           <Form.Control
-          required
+            required
             type="number"
             name="protime"
             ref={(node) => {
@@ -379,11 +364,11 @@ const HepatitisCheckForm = () => {
           </Form.Select>
         </Form.Group>
 
-        {showLoading && 
-            <Spinner animation="border" role="status">
+        {showLoading && (
+          <Spinner animation="border" role="output">
             <span className="sr-only">Loading...</span>
-            </Spinner> 
-        } 
+          </Spinner>
+        )}
         <Button variant="primary" type="submit">
           Check Hepatitis Status
         </Button>

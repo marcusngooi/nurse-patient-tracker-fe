@@ -1,12 +1,9 @@
-// Group Project
-// Author:      Marcus Ngooi (301147411)
-// Description: Signing up.
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
 import { gql, useMutation } from "@apollo/client";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-
-import { useNavigate } from "react-router-dom";
 
 const SIGN_UP = gql`
   mutation SignUp(
@@ -32,14 +29,14 @@ const SIGN_UP = gql`
   }
 `;
 
-function SignUp(props) {
+const SignUp = (props) => {
   let navigate = useNavigate();
 
   let userName, firstName, lastName, password, userType;
-  const [signUp, { data, loading, error }] = useMutation(SIGN_UP);
+  const [signUp, { loading, error }] = useMutation(SIGN_UP);
 
-  if (loading) return "Submitting...";
-  if (error) return `Submission error! ${error.message}`;
+  if (loading) return <h1>Submitting...</h1>;
+  if (error) return <h1>{`Submission error! ${error.message}`}</h1>;
 
   return (
     <div>
@@ -128,6 +125,10 @@ function SignUp(props) {
       </form>
     </div>
   );
-}
+};
+
+SignUp.propTypes = {
+  handleSignUp: PropTypes.func.isRequired,
+};
 
 export default SignUp;

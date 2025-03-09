@@ -1,18 +1,8 @@
-// COMP308-402 Group Project-Group-4
-// Authors:     Marcus Ngooi (301147411)
-//              Ikamjot Hundal (301134374)
-//              Ben Coombes (301136902)
-//              Grant Macmillan (301129935)
-//              Gabriel Dias Tinoco
-//              Tatsiana Ptushko (301182173)
-// Description: Enter the vital signs
-
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { gql, useMutation } from "@apollo/client";
 import Form from "react-bootstrap/Form";
-
 import Button from "react-bootstrap/Button";
 
 const ENTER_VITAL_SIGNS = gql`
@@ -38,18 +28,14 @@ const ENTER_VITAL_SIGNS = gql`
   }
 `;
 
-//function component to add vital signs
-const EnterVitals = (props) => {
-  const { id } = useParams();
+const EnterVitals = () => {
   let navigate = useNavigate();
-
   let weight, bodyTemperature, heartRate, bloodPressure, respiratoryRate;
 
-  const [enterVitals, { data, loading, error }] =
-    useMutation(ENTER_VITAL_SIGNS);
+  const [enterVitals, { loading, error }] = useMutation(ENTER_VITAL_SIGNS);
 
-  if (loading) return "Submiting..";
-  if (error) return `Submission error! ${error.message}`;
+  if (loading) return <h1>Submitting...</h1>;
+  if (error) return <h1>{`Submission error! ${error.message}`}</h1>;
 
   return (
     <div className="entryform">
@@ -72,15 +58,14 @@ const EnterVitals = (props) => {
           bloodPressure.value = "";
           respiratoryRate.value = "";
 
-          // navigate("/entervitalsigns/" + id);
           alert("Submitted the vital signs");
-          navigate("/home")
+          navigate("/home");
         }}
       >
         <Form.Group>
           <Form.Label> Weight: </Form.Label>
           <Form.Control
-          required
+            required
             type="text"
             name="weight"
             ref={(node) => {
@@ -92,7 +77,7 @@ const EnterVitals = (props) => {
         <Form.Group>
           <Form.Label> Body Temperature: </Form.Label>
           <Form.Control
-          required
+            required
             type="text"
             name="bodyTemperature"
             ref={(node) => {
@@ -104,7 +89,7 @@ const EnterVitals = (props) => {
         <Form.Group>
           <Form.Label> Heart Rate: </Form.Label>
           <Form.Control
-          required
+            required
             type="text"
             name="heartRate"
             ref={(node) => {
@@ -116,7 +101,7 @@ const EnterVitals = (props) => {
         <Form.Group>
           <Form.Label> Blood Pressure: </Form.Label>
           <Form.Control
-          required
+            required
             type="text"
             name="Blood Pressure"
             ref={(node) => {
@@ -128,7 +113,7 @@ const EnterVitals = (props) => {
         <Form.Group>
           <Form.Label> Respiratory Rate: </Form.Label>
           <Form.Control
-          required
+            required
             type="text"
             name="respiratoryRate"
             ref={(node) => {

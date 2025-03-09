@@ -1,29 +1,9 @@
-// COMP308-402 Group Project-Group-4
-// Authors:     Marcus Ngooi (301147411)
-//              Ikamjot Hundal (301134374)
-//              Ben Coombes (301136902)
-//              Grant Macmillan (301129935)
-//              Gabriel Dias Tinoco
-//              Tatsiana Ptushko (301182173)
-// Description: Show a list of patients
 import React from "react";
-import { gql, useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 
+import { gql, useQuery } from "@apollo/client";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
-
-// const GET_USERS = gql`
-//   {
-//     users {
-//       _id
-//       userName
-//       firstName
-//       lastName
-//       user_type
-//     }
-//   }
-// `;
 
 const GET_PATIENTS = gql`
   {
@@ -38,8 +18,6 @@ const GET_PATIENTS = gql`
 
 const ListUsers = () => {
   let navigate = useNavigate();
-
-  // const { loading, error, data, refetch } = useQuery(GET_USERS);
   const { loading, error, data, refetch } = useQuery(GET_PATIENTS);
 
   const showVitalSigns = (id) => {
@@ -50,8 +28,8 @@ const ListUsers = () => {
     navigate("/entervitalsigns/" + id);
   };
 
-  if (loading) return <p>Loading..</p>;
-  if (error) return <p> Error : {error}</p>;
+  if (loading) return <h1>Loading..</h1>;
+  if (error) return <h1> Error : {error}</h1>;
 
   return (
     <div>
@@ -67,8 +45,8 @@ const ListUsers = () => {
           </tr>
         </thead>
         <tbody>
-          {data.patients.map((patient, index) => (
-            <tr key={index}>
+          {data.patients.map((patient) => (
+            <tr key={patient._id}>
               <td>{patient._id}</td>
               <td>{patient.userName}</td>
               <td>{patient.firstName}</td>
