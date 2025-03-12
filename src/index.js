@@ -1,19 +1,25 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
+import {
+  ApolloProvider,
+  ApolloClient,
+  InMemoryCache,
+  createHttpLink,
+} from "@apollo/client";
+
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
-import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+const httpLink = createHttpLink({
+  uri: process.env.REACT_APP_API_URL,
+  credentials: "include",
+});
 
 const client = new ApolloClient({
-  uri: "http://localhost:4000/graphql",
+  link: httpLink,
   cache: new InMemoryCache(),
-  credentials: "include",
-  fetchOptions: {
-    timeout: 300000,
-  },
 });
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
