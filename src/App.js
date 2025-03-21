@@ -10,7 +10,6 @@ import Container from "react-bootstrap/Container";
 import Home from "./components/Home";
 import SignUp from "./components/Auth/SignUp";
 import SignIn from "./components/Auth/SignIn";
-import Game from "./components/Game";
 import ListUsers from "./components/Nurse/ListUsers";
 import ShowVitalSigns from "./components/Patient/ShowVitalSigns";
 import EnterVitalSigns from "./components/Patient/EnterVitalSigns";
@@ -97,9 +96,6 @@ const App = () => {
                   <Nav.Link as={Link} to="/checksymptoms">
                     Check Symptoms
                   </Nav.Link>
-                  <Nav.Link as={Link} to="/game">
-                    Game
-                  </Nav.Link>
                   <Nav.Link as={Link} to="/sendemergencyalert">
                     Send Emergency Alert
                   </Nav.Link>
@@ -174,7 +170,6 @@ const App = () => {
             }
           />
           <Route path="/home" element={<Home />} />
-          <Route path="/game" element={<Game />} />
           <Route path="/entervitalsaspatient" element={<EnterVitalSigns />} />
           <Route path="/checksymptoms" element={<CheckCommonSymptoms />} />
           <Route path="/entervitalsigns/:id" element={<EnterVitalSigns />} />

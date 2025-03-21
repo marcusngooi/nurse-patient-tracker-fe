@@ -7,7 +7,7 @@ import {
   InMemoryCache,
   createHttpLink,
 } from "@apollo/client";
-
+import { setContext } from "@apollo/client/link/context";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -17,8 +17,22 @@ const httpLink = createHttpLink({
   credentials: "include",
 });
 
+const authLink = setContext((_, { headers }) => {
+  const cookie = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith("jwt="));
+  const token = cookie ? cookie.split("=")[1] : null;
+  console.log("Token being sent:", token);
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    },
+  };
+});
+
 const client = new ApolloClient({
-  link: httpLink,
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { gql, useMutation } from "@apollo/client";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import PropTypes from "prop-types";
 
 const SIGN_UP = gql`
   mutation SignUp(
