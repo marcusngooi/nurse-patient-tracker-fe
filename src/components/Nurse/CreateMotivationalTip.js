@@ -1,17 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
+import { ADD_TIP } from "../../graphql/mutations";
 import { Container, Form, Button } from "react-bootstrap";
-
-const ADD_TIP = gql`
-  mutation AddTip($message: String!) {
-    addTip(message: $message) {
-      _id
-      message
-    }
-  }
-`;
 
 const CreateMotivationalTip = () => {
   let navigate = useNavigate();
@@ -25,7 +17,7 @@ const CreateMotivationalTip = () => {
     event.preventDefault();
     addTip({ variables: { message: message } });
     setMessage("");
-    alert("You have submitted this movitational tip: " + message);
+    alert("You have submitted this motivational tip: " + message);
     navigate("/home");
   };
 

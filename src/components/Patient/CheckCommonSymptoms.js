@@ -1,41 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
+import { CHECK_SYMPTOMS } from "../../graphql/mutations";
+
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-const CHECK_SYMPTOMS = gql`
-  mutation CheckSymptoms(
-    $fever: Boolean!
-    $cough: Boolean!
-    $fatigue: Boolean!
-    $breathing: Boolean!
-    $bodyaches: Boolean!
-    $headache: Boolean!
-    $smell: Boolean!
-    $sorethroat: Boolean!
-    $runnynose: Boolean!
-    $vomiting: Boolean!
-    $diarrhea: Boolean!
-  ) {
-    checkSymptoms(
-      fever: $fever
-      cough: $cough
-      fatigue: $fatigue
-      breathing: $breathing
-      bodyaches: $bodyaches
-      headache: $headache
-      smell: $smell
-      sorethroat: $sorethroat
-      runnynose: $runnynose
-      vomiting: $vomiting
-      diarrhea: $diarrhea
-    ) {
-      patientId
-    }
-  }
-`;
 const CheckSymptoms = () => {
   let navigate = useNavigate();
   let fever,

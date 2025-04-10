@@ -1,18 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { gql, useMutation } from "@apollo/client";
-import { Container, Form, Button } from "react-bootstrap";
+import { useMutation } from "@apollo/client";
+import { ADD_ALERT } from "../../graphql/mutations";
 
-const ADD_ALERT = gql`
-  mutation AddAlert($message: String!) {
-    addAlert(message: $message) {
-      _id
-      message
-      patient
-    }
-  }
-`;
+import { Container, Form, Button } from "react-bootstrap";
 
 const SendAlert = () => {
   let navigate = useNavigate();

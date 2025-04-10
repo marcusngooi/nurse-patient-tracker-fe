@@ -1,74 +1,67 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useAuth } from "../../hooks/AuthProvider";
 
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
+import { SIGN_UP } from "../../graphql/mutations";
+
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import PropTypes from "prop-types";
 
-const SIGN_UP = gql`
-  mutation SignUp(
-    $userName: String!
-    $password: String!
-    $firstName: String!
-    $lastName: String!
-    $userType: String!
-    $vitals: [String!]
-  ) {
-    signUp(
-      userName: $userName
-      password: $password
-      firstName: $firstName
-      lastName: $lastName
-      userType: $userType
-      vitals: $vitals
-    ) {
-      _id
-      userName
-      userType
-    }
-  }
-`;
-
-const SignUp = (props) => {
-  let navigate = useNavigate();
-
-  let userName, firstName, lastName, password, userType;
+const SignUp = () => {
+  const auth = useAuth();
+  const [input, setInput] = useState({
+    username: "",
+    firstName: "",
+    lastName: "",
+    password: "",
+    userType: "",
+  });
   const [signUp, { loading, error }] = useMutation(SIGN_UP);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const res = await signUp({
+      variables: {
+        username: input.username,
+        password: input.password,
+        firstName: input.firstName,
+        lastName: input.lastName,
+        userType: input.userType,
+        vitals: [],
+        checklist: [],
+      },
+    });
+    if (res.data) {
+      auth.signInAction({
+        username: res.data.signUp.username,
+        password: input.password,
+      });
+    }
+  };
+
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setInput((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   if (loading) return <h1>Submitting...</h1>;
   if (error) return <h1>{`Submission error! ${error.message}`}</h1>;
 
   return (
     <div>
-      <form
-        onSubmit={async (e) => {
-          e.preventDefault();
-          const payload = await signUp({
-            variables: {
-              userName: userName.value,
-              password: password.value,
-              firstName: firstName.value,
-              lastName: lastName.value,
-              userType: userType.value,
-              vitals: [],
-              checklist: [],
-            },
-          });
-          props.handleSignUp(payload);
-          navigate("/home");
-        }}
-      >
+      <form onSubmit={handleSubmit}>
         <Form.Group>
           <Form.Label> Username:</Form.Label>
           <Form.Control
             required
             type="text"
-            name="user"
-            ref={(node) => {
-              userName = node;
-            }}
+            name="username"
             placeholder="Username:"
+            onChange={handleInput}
           />
         </Form.Group>
         <Form.Group>
@@ -77,10 +70,8 @@ const SignUp = (props) => {
             required
             type="password"
             name="password"
-            ref={(node) => {
-              password = node;
-            }}
             placeholder="Password:"
+            onChange={handleInput}
           />
         </Form.Group>
         <Form.Group>
@@ -89,10 +80,8 @@ const SignUp = (props) => {
             required
             type="text"
             name="firstName"
-            ref={(node) => {
-              firstName = node;
-            }}
             placeholder="First Name:"
+            onChange={handleInput}
           />
         </Form.Group>
         <Form.Group>
@@ -101,20 +90,16 @@ const SignUp = (props) => {
             required
             type="text"
             name="lastName"
-            ref={(node) => {
-              lastName = node;
-            }}
             placeholder="Last Name:"
+            onChange={handleInput}
           />
         </Form.Group>
         <Form.Group>
           <Form.Label> User Type:</Form.Label>
           <Form.Select
             name="userType"
-            ref={(node) => {
-              userType = node;
-            }}
             placeholder="User Type:"
+            onChange={handleInput}
           >
             <option value="nurse">Nurse</option>
             <option value="patient">Patient</option>

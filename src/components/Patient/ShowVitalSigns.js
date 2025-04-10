@@ -1,22 +1,10 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 
-import { gql, useQuery } from "@apollo/client";
-import Table from "react-bootstrap/Table";
+import { useQuery } from "@apollo/client";
+import { GET_VITAL_SIGNS } from "../../graphql/queries";
 
-const GET_VITAL_SIGNS = gql`
-  query PatientVitalsAsNurse($id: String!) {
-    patientVitalsAsNurse(id: $id) {
-      _id
-      heartRate
-      bloodPressure
-      weight
-      bodyTemperature
-      respiratoryRate
-      date
-    }
-  }
-`;
+import Table from "react-bootstrap/Table";
 
 const ShowVitalSigns = () => {
   const { id } = useParams();

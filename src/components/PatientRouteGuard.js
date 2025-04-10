@@ -1,13 +1,8 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 
-import { gql, useQuery } from "@apollo/client";
-
-const IS_NURSE = gql`
-  query IsNurse {
-    isNurse
-  }
-`;
+import { useQuery } from "@apollo/client";
+import { IS_NURSE } from "../graphql/queries";
 
 const PatientRouteGuard = () => {
   const { loading, error, data } = useQuery(IS_NURSE);

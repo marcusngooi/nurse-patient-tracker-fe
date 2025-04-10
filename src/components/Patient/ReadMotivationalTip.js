@@ -1,16 +1,9 @@
 import React from "react";
 
-import { gql, useQuery } from "@apollo/client";
-import { Container } from "react-bootstrap";
+import { useQuery } from "@apollo/client";
+import { GET_TIPS } from "../../graphql/queries";
 
-const GET_TIPS = gql`
-  query GetTip {
-    tip {
-      _id
-      message
-    }
-  }
-`;
+import { Container } from "react-bootstrap";
 
 const ReadMotivationalTip = () => {
   const { loading, error, data } = useQuery(GET_TIPS);

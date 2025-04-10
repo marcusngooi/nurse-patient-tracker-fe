@@ -1,20 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
+import { GET_PATIENTS } from "../../graphql/queries";
+
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
-
-const GET_PATIENTS = gql`
-  {
-    patients {
-      _id
-      userName
-      firstName
-      lastName
-    }
-  }
-`;
 
 const ListUsers = () => {
   let navigate = useNavigate();

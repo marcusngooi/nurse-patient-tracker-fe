@@ -1,58 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { gql, useLazyQuery } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client";
+import { HEPATITIS_STATUS } from "../../graphql/queries";
+
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
-
-const HEPATITIS_STATUS = gql`
-  query HepatitisStatus(
-    $age: String!
-    $sex: String!
-    $steroid: String!
-    $antivirals: String!
-    $fatigue: String!
-    $malaise: String!
-    $anorexia: String!
-    $liverBig: String!
-    $liverFirm: String!
-    $spleenPalpable: String!
-    $spiders: String!
-    $ascites: String!
-    $varices: String!
-    $bilurubin: String!
-    $alkPhosphate: String!
-    $sGot: String!
-    $albumin: String!
-    $protime: String!
-    $histology: String!
-  ) {
-    hepatitisStatus(
-      age: $age
-      sex: $sex
-      steroid: $steroid
-      antivirals: $antivirals
-      fatigue: $fatigue
-      malaise: $malaise
-      anorexia: $anorexia
-      liverBig: $liverBig
-      liverFirm: $liverFirm
-      spleenPalpable: $spleenPalpable
-      spiders: $spiders
-      ascites: $ascites
-      varices: $varices
-      bilurubin: $bilurubin
-      alkPhosphate: $alkPhosphate
-      sGot: $sGot
-      albumin: $albumin
-      protime: $protime
-      histology: $histology
-    ) {
-      resultsArray
-    }
-  }
-`;
 
 const HepatitisCheckForm = () => {
   let navigate = useNavigate();

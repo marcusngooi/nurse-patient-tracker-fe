@@ -1,21 +1,16 @@
-import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
-
-import { gql, useQuery } from "@apollo/client";
-
-const IS_SIGNED_IN = gql`
-  query IsSignedIn {
-    isSignedIn
-  }
-`;
+import { useAuth } from "../hooks/AuthProvider";
 
 const PrivateRoute = () => {
-  const { loading, error, data } = useQuery(IS_SIGNED_IN);
+  const auth = useAuth();
+  if (auth?.loading_isSignedIn) return <h1>Loading...</h1>;
+  if (auth?.error_isSignedIn) return <h1>Error: {auth?.error_isSignedIn}</h1>;
 
-  if (loading) return <h1>Loading...</h1>;
-  if (error) return <h1>Error: {error}</h1>;
-
-  return data.isSignedIn ? <Outlet /> : <Navigate to="/signin" />;
+  return auth?.isSignedIn ? (
+    <Outlet />
+  ) : (
+    <Navigate to="/signin" />
+  );
 };
 
 export default PrivateRoute;
