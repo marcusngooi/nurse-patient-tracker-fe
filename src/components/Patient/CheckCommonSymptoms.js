@@ -171,4 +171,4 @@ const CheckSymptoms = () => {
     </div>
   );
 };
-export default CheckSymptoms;
+export { CheckSymptoms };

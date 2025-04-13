@@ -5,17 +5,21 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
 const Navigation = () => {
-  const auth = useAuth();
+  const { user, isAuthenticated, loadingInitialAuth, signOutAction } =
+    useAuth();
+
+  if (loadingInitialAuth) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Navbar expand="lg" bg="dark" data-bs-theme="dark">
       <Container>
-        <Navbar.Brand href="/home">NPT</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             {/* Common */}
-            {!auth?.isSignedIn && (
+            {!isAuthenticated && (
               <>
                 <Nav.Link href="/signin" className="nav-link">
                   Sign In
@@ -25,22 +29,18 @@ const Navigation = () => {
                 </Nav.Link>
               </>
             )}
-            {auth?.isSignedIn && (
+            {isAuthenticated && (
               <>
                 <Nav.Link href="/home" className="nav-link">
                   Home
                 </Nav.Link>
-                <Nav.Link
-                  onClick={auth.signOutAction}
-                  className="nav-link"
-                  href="#"
-                >
+                <Nav.Link onClick={signOutAction} className="nav-link" href="#">
                   Sign Out
                 </Nav.Link>
               </>
             )}
             {/* Patient */}
-            {auth?.user?.userType === "patient" && (
+            {user?.userType === "patient" && (
               <>
                 <Nav.Link href="/sendemergencyalert" className="nav-link">
                   Send Emergency Alert
@@ -60,7 +60,7 @@ const Navigation = () => {
               </>
             )}
             {/* Nurse */}
-            {auth?.user?.userType === "nurse" && (
+            {user?.userType === "nurse" && (
               <>
                 <Nav.Link href="/entervitals/:id" className="nav-link">
                   Enter Vitals
@@ -86,4 +86,4 @@ const Navigation = () => {
   );
 };
 
-export default Navigation;
+export { Navigation };

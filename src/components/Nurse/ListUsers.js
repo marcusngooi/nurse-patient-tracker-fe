@@ -75,4 +75,4 @@ const ListUsers = () => {
   );
 };
 
-export default ListUsers;
+export { ListUsers };

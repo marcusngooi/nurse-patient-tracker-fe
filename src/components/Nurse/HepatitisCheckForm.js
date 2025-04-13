@@ -331,4 +331,4 @@ const HepatitisCheckForm = () => {
   );
 };
 
-export default HepatitisCheckForm;
+export { HepatitisCheckForm };

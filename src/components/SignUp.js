@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useAuth } from "../../hooks/AuthProvider";
+import { useAuth } from "../hooks/AuthProvider";
 
 import { useMutation } from "@apollo/client";
-import { SIGN_UP } from "../../graphql/mutations";
+import { SIGN_UP } from "../graphql/mutations";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -117,4 +117,4 @@ SignUp.propTypes = {
   handleSignUp: PropTypes.func.isRequired,
 };
 
-export default SignUp;
+export { SignUp };

@@ -42,4 +42,4 @@ const CreateMotivationalTip = () => {
   );
 };
 
-export default CreateMotivationalTip;
+export { CreateMotivationalTip };

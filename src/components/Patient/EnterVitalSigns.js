@@ -109,4 +109,4 @@ const EnterVitals = () => {
   );
 };
 
-export default EnterVitals;
+export { EnterVitals };

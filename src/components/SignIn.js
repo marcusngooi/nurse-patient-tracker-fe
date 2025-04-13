@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAuth } from "../../hooks/AuthProvider";
+import { useAuth } from "../hooks/AuthProvider";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -61,4 +61,4 @@ SignIn.propTypes = {
   handleSignIn: PropTypes.func.isRequired,
 };
 
-export default SignIn;
+export { SignIn };

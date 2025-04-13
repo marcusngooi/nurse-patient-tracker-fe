@@ -1,21 +1,48 @@
-import { useContext, createContext, useState } from "react";
+import { useContext, createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { useMutation, useLazyQuery } from "@apollo/client";
 import { SIGN_IN, SIGN_OUT } from "../graphql/mutations";
 import { IS_SIGNED_IN } from "../graphql/queries";
 
-const AuthContext = createContext();
+const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loadingInitialAuth, setLoadingInitialAuth]=useState(true);
   const navigate = useNavigate();
 
   const [signIn] = useMutation(SIGN_IN);
   const [signOut] = useMutation(SIGN_OUT);
   const [
     isSignedIn,
-    { loading_isSignedIn, error_isSignedIn, data_isSignedIn },
+    {
+      loading: loading_isSignedIn,
+      error: error_isSignedIn,
+    },
   ] = useLazyQuery(IS_SIGNED_IN);
+
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+      setLoadingInitialAuth(true);
+      try {
+        const { data } = await isSignedIn();
+        if (data?.isSignedIn?.user) {
+          setUser(data.isSignedIn.user);
+        } else {
+          setUser(null);
+        }
+      } catch (err) {
+        console.error("Error checking sign-in status:", err);
+        setUser(null);
+      } finally {
+        setLoadingInitialAuth(false);
+      }
+    };
+
+    checkAuthStatus();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const signInAction = async (data) => {
     try {
@@ -25,34 +52,43 @@ const AuthProvider = ({ children }) => {
           password: data.password,
         },
       });
-      if (res.data) {
+      if (res.data?.signIn) {
         setUser(res.data.signIn);
         navigate("/home");
         return;
       }
-      throw new Error(res.message);
+      throw new Error(res.errors?.[0]?.message || "Sign-in failed");
     } catch (err) {
-      console.error(err);
+      console.error("Sign-in error:", err);
+      throw err;
     }
   };
 
   const signOutAction = async () => {
-    const res = await signOut();
-    if (res.data.signOut) {
-      setUser(null);
-      navigate("/signin");
+    try {
+      const res = await signOut();
+      if (res.data?.signOut) {
+        setUser(null);
+        navigate("/signin");
+        return;
+      }
+      throw new Error(res.errors?.[0]?.message || "Sign-out failed");
+    } catch (err) {
+      console.log("signOutAction Error: ", err);
+      throw err;
     }
-    throw new Error(res.message);
   };
+
+  const isAuthenticated = () => !!user;
 
   const authContextValue = {
     user,
     signInAction,
     signOutAction,
-    isSignedIn,
+    isAuthenticated,
+    loadingInitialAuth,
     loading_isSignedIn,
     error_isSignedIn,
-    data_isSignedIn,
   };
 
   return (

@@ -52,4 +52,4 @@ const ShowVitalSigns = () => {
   );
 };
 
-export default ShowVitalSigns;
+export { ShowVitalSigns };

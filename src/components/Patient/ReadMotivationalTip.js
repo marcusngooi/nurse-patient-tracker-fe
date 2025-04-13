@@ -27,4 +27,4 @@ const ReadMotivationalTip = () => {
   );
 };
 
-export default ReadMotivationalTip;
+export { ReadMotivationalTip };

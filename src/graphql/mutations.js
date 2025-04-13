@@ -12,10 +12,7 @@ const SIGN_IN = gql`
 
 const SIGN_OUT = gql`
   mutation SignOut {
-    signOut {
-      success
-      message
-    }
+    signOut 
   }
 `;
 

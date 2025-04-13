@@ -2,7 +2,7 @@ import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 
 import { useQuery } from "@apollo/client";
-import { IS_NURSE } from "../graphql/queries";
+import { IS_NURSE } from "../../graphql/queries";
 
 const NurseRouteGuard = () => {
   const { loading, error, data } = useQuery(IS_NURSE);
@@ -13,4 +13,4 @@ const NurseRouteGuard = () => {
   return data.isNurse ? <Outlet /> : <Navigate to="/home" />;
 };
 
-export default NurseRouteGuard;
+export { NurseRouteGuard };

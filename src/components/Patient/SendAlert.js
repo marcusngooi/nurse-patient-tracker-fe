@@ -42,4 +42,4 @@ const SendAlert = () => {
   );
 };
 
-export default SendAlert;
+export { SendAlert };

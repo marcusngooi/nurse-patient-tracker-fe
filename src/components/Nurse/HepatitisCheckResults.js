@@ -53,4 +53,4 @@ const HepatitisCheckResults = () => {
   );
 };
 
-export default HepatitisCheckResults;
+export { HepatitisCheckResults };

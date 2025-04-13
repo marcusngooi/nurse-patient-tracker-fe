@@ -35,7 +35,7 @@ const EnterVitals = () => {
   let weight, bodyTemperature, heartRate, bloodPressure, respiratoryRate;
 
   const [enterVitals, { loading, error }] = useMutation(
-    ENTER_PATIENT_VITAL_SIGNS
+    ENTER_PATIENT_VITAL_SIGNS,
   );
 
   if (loading) return <h1>Submitting...</h1>;
@@ -127,4 +127,4 @@ const EnterVitals = () => {
   );
 };
 
-export default EnterVitals;
+export { EnterVitals };
