@@ -1,34 +1,10 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
+import { ENTER_PATIENT_VITAL_SIGNS } from "../../graphql/mutations";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-
-const ENTER_PATIENT_VITAL_SIGNS = gql`
-  mutation AddVitalAsNurse(
-    $id: String!
-    $weight: Float!
-    $bodyTemperature: Float!
-    $heartRate: Int!
-    $bloodPressure: Int!
-    $respiratoryRate: Float!
-  ) {
-    addVitalAsNurse(
-      id: $id
-      weight: $weight
-      bodyTemperature: $bodyTemperature
-      heartRate: $heartRate
-      bloodPressure: $bloodPressure
-      respiratoryRate: $respiratoryRate
-    ) {
-      _id
-      patient
-      date
-      weight
-    }
-  }
-`;
 
 const EnterVitals = () => {
   const { id } = useParams();

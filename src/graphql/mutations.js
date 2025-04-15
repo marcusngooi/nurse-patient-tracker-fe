@@ -72,6 +72,32 @@ const ENTER_VITAL_SIGNS = gql`
   }
 `;
 
+const ENTER_PATIENT_VITAL_SIGNS = gql`
+  mutation AddVitalAsNurse(
+    $id: String!
+    $weight: Float!
+    $bodyTemperature: Float!
+    $heartRate: Int!
+    $bloodPressure: Int!
+    $respiratoryRate: Float!
+  ) {
+    addVitalAsNurse(
+      id: $id
+      weight: $weight
+      bodyTemperature: $bodyTemperature
+      heartRate: $heartRate
+      bloodPressure: $bloodPressure
+      respiratoryRate: $respiratoryRate
+    ) {
+      _id
+      patient
+      date
+      weight
+    }
+  }
+`;
+
+
 const CHECK_SYMPTOMS = gql`
   mutation CheckSymptoms(
     $fever: Boolean!
@@ -114,4 +140,4 @@ const ADD_ALERT = gql`
   }
 `;
 
-export { SIGN_IN, SIGN_OUT, SIGN_UP, ADD_TIP, ENTER_VITAL_SIGNS, CHECK_SYMPTOMS, ADD_ALERT };
+export { SIGN_IN, SIGN_OUT, SIGN_UP, ADD_TIP, ENTER_VITAL_SIGNS, ENTER_PATIENT_VITAL_SIGNS, CHECK_SYMPTOMS, ADD_ALERT };

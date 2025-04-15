@@ -5,10 +5,9 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
 const Navigation = () => {
-  const { user, isAuthenticated, loadingInitialAuth, signOutAction } =
-    useAuth();
+  const { user, signOutAction, loading } = useAuth();
 
-  if (loadingInitialAuth) {
+  if (loading) {
     return <div>Loading...</div>;
   }
 
@@ -19,7 +18,7 @@ const Navigation = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             {/* Common */}
-            {!isAuthenticated && (
+            {!user && (
               <>
                 <Nav.Link href="/signin" className="nav-link">
                   Sign In
@@ -29,12 +28,12 @@ const Navigation = () => {
                 </Nav.Link>
               </>
             )}
-            {isAuthenticated && (
+            {user && (
               <>
                 <Nav.Link href="/home" className="nav-link">
                   Home
                 </Nav.Link>
-                <Nav.Link onClick={signOutAction} className="nav-link" href="#">
+                <Nav.Link className="nav-link" onClick={signOutAction} href="#">
                   Sign Out
                 </Nav.Link>
               </>

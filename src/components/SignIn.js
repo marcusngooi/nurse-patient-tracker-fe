@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { useAuth } from "../hooks/AuthProvider";
 
 import Form from "react-bootstrap/Form";
@@ -10,14 +12,27 @@ const SignIn = () => {
     username: "",
     password: "",
   });
-  const auth = useAuth();
-  const handleSubmit = (e) => {
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const { signInAction } = useAuth();
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (input.username !== "" && input.password !== "") {
-      auth.signInAction(input);
-      return;
+    setLoading(true);
+    setError("");
+
+    const res = await signInAction(input.username, input.password);
+
+    if (res.success) {
+      navigate("/home");
+    } else {
+      setError(res.message || "Sign in failed");
     }
-    alert("Please provide a valid username and password");
+
+    setLoading(false);
   };
 
   const handleInput = (e) => {
@@ -30,6 +45,8 @@ const SignIn = () => {
 
   return (
     <div className="entryform">
+      <h1>Sign In</h1>
+      {error && <p className="error">{error}</p>}
       <Form onSubmit={handleSubmit}>
         <Form.Group>
           <Form.Label> Username:</Form.Label>
@@ -50,7 +67,7 @@ const SignIn = () => {
           />
         </Form.Group>
         <Button size="lg" variant="primary" type="submit">
-          Sign In
+          {loading ? "Signing in..." : "Sign In"}
         </Button>
       </Form>
     </div>

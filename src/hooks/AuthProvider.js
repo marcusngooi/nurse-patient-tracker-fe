@@ -1,94 +1,81 @@
 import { useContext, createContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
-import { useMutation, useLazyQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { SIGN_IN, SIGN_OUT } from "../graphql/mutations";
 import { IS_SIGNED_IN } from "../graphql/queries";
 
-const AuthContext = createContext(null);
+const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loadingInitialAuth, setLoadingInitialAuth]=useState(true);
-  const navigate = useNavigate();
-
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem("userData");
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
+  const [loading, setLoading] = useState(true);
   const [signIn] = useMutation(SIGN_IN);
   const [signOut] = useMutation(SIGN_OUT);
-  const [
-    isSignedIn,
-    {
-      loading: loading_isSignedIn,
-      error: error_isSignedIn,
+  const { error, refetch } = useQuery(IS_SIGNED_IN, {
+    onCompleted: (data) => {
+      if (!data?.isSignedIn) {
+        setUser(null);
+      }
+      setLoading(false);
     },
-  ] = useLazyQuery(IS_SIGNED_IN);
+    onError: () => {
+      console.log("error on useQuery");
+      setUser(null);
+      setLoading(false);
+    },
+  });
 
   useEffect(() => {
-    const checkAuthStatus = async () => {
-      setLoadingInitialAuth(true);
-      try {
-        const { data } = await isSignedIn();
-        if (data?.isSignedIn?.user) {
-          setUser(data.isSignedIn.user);
-        } else {
-          setUser(null);
-        }
-      } catch (err) {
-        console.error("Error checking sign-in status:", err);
-        setUser(null);
-      } finally {
-        setLoadingInitialAuth(false);
-      }
-    };
+    if (user) {
+      localStorage.setItem("userData", JSON.stringify(user));
+    } else {
+      localStorage.removeItem("userData");
+    }
+  }, [user]);
 
-    checkAuthStatus();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const signInAction = async (data) => {
+  const signInAction = async (username, password) => {
     try {
-      const res = await signIn({
-        variables: {
-          username: data.username,
-          password: data.password,
-        },
+      const { data } = await signIn({
+        variables: { username, password },
       });
-      if (res.data?.signIn) {
-        setUser(res.data.signIn);
-        navigate("/home");
-        return;
+
+      if (data?.signIn) {
+        setUser(data.signIn);
+        await refetch();
+        return { success: true };
+      } else {
+        return { success: false, message: data?.signIn || "Sign in failed" };
       }
-      throw new Error(res.errors?.[0]?.message || "Sign-in failed");
     } catch (err) {
-      console.error("Sign-in error:", err);
-      throw err;
+      return { success: false, message: err.message || "Sign in failed" };
     }
   };
 
   const signOutAction = async () => {
     try {
-      const res = await signOut();
-      if (res.data?.signOut) {
+      const { data } = await signOut();
+      if (data?.signOut) {
         setUser(null);
-        navigate("/signin");
-        return;
+        return { success: true };
       }
-      throw new Error(res.errors?.[0]?.message || "Sign-out failed");
+      return { success: false };
     } catch (err) {
       console.log("signOutAction Error: ", err);
-      throw err;
+      return { success: false, message: err.message };
     }
   };
 
-  const isAuthenticated = () => !!user;
-
   const authContextValue = {
     user,
+    isAuthenticated: Boolean(user),
     signInAction,
     signOutAction,
-    isAuthenticated,
-    loadingInitialAuth,
-    loading_isSignedIn,
-    error_isSignedIn,
+    loading,
+    error,
+    refetch,
   };
 
   return (
